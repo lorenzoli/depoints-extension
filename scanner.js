@@ -9,6 +9,7 @@ getId = text => {
 scan = async (scanClassName, lastSize) => {
     const degodsApiUrl = "https://api.degods.dustlabs.com/degods";
     const items = document.querySelectorAll(scanClassName);
+    const scanned = [];
     if (items != null && items.length > 0) {
         if (lastSize != items.length) {
             lastSize = items.length;
@@ -18,13 +19,16 @@ scan = async (scanClassName, lastSize) => {
                     const text = e.target.innerHTML;
                     if (isDeGodText(text)) {
                         const id = getId(text);
-                        const res = await fetch(degodsApiUrl + '/' + id);
-                        const record = await res.json();
-
-                        if (record.success === true) {
-                            const pointEl = document.createElement('div');
-                            pointEl.innerHTML = 'Points: ' + record.degod.points;
-                            e.srcElement.appendChild(pointEl);
+                        if (!scanned.find(s => s === id)) {
+                            scanned.push(id);
+                            const res = await fetch(degodsApiUrl + '/' + id);
+                            const record = await res.json();
+    
+                            if (record.success === true) {
+                                const pointEl = document.createElement('div');
+                                pointEl.innerHTML = 'Points: ' + record.degod.points;
+                                e.srcElement.appendChild(pointEl);
+                            }
                         }
                     }
                 }
