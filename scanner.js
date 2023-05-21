@@ -17,15 +17,13 @@ scan = async (scanClassName, lastSize) => {
                 items[i].onmouseover = async (e) => {
                     const text = e.target.innerHTML;
                     if (isDeGodText(text)) {
-                        console.log(e);
                         const id = getId(text);
                         const res = await fetch(degodsApiUrl + '/' + id);
                         const record = await res.json();
-                        console.log(record);
 
                         if (record.success === true) {
                             const pointEl = document.createElement('div');
-                            pointEl.innerHTML = record.degod.points;
+                            pointEl.innerHTML = 'Points: ' + record.degod.points;
                             e.srcElement.appendChild(pointEl);
                         }
                     }
