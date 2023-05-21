@@ -1,0 +1,29 @@
+{
+    "name": "DeGods Points scanner",
+    "version": "1.0.0",
+    "description": "Scan degods points on marketplaces",
+    "manifest_version": 3,
+    "author": "Odin DeGods",
+    "action": {
+        "default_title": "DeGods Points"
+    },
+    "permissions": [
+        "scripting",
+        "webRequest",
+        "activeTab"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "https://blur.io/*"
+            ],
+            "runAt": "document_idle",
+            "js": [
+                "scanner.js"
+            ]
+        }
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ]
+}
