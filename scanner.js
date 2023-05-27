@@ -28,6 +28,10 @@ scan = async (scanClassName, lastSize) => {
                                 const pointEl = document.createElement('div');
                                 pointEl.innerHTML = 'Points: ' + record.degod.points;
                                 e.srcElement.appendChild(pointEl);
+
+                                const rankEl = document.createElement('div');
+                                rankEl.innerHTML = 'Rank: ' + record.degod.rank;
+                                e.srcElement.appendChild(rankEl);
                             }
                         }
                     }
