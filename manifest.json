@@ -16,7 +16,8 @@
         {
             "matches": [
                 "https://blur.io/*",
-                "https://pro.opensea.io/*"
+                "https://pro.opensea.io/*",
+                "https://opensea.io/*"
             ],
             "runAt": "document_idle",
             "js": [
