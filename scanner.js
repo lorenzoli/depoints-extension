@@ -127,7 +127,7 @@ if (isSupportedMarketplace('degods')) {
         if (items) {
             lastSize = await scanDegods(items, lastSize);
         }
-    }, 3333);
+    }, 333);
 }
 
 if (isSupportedMarketplace('y00ts')) {
@@ -138,5 +138,5 @@ if (isSupportedMarketplace('y00ts')) {
         if (items) {
             lastSize = await scanY00ts(items, lastSize);
         }
-    }, 3333);
+    }, 333);
 }
