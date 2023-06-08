@@ -116,7 +116,7 @@ isSupportedMarketplace = supported => {
     return false;
 }
 
-if (isSupportedMarketplace(['blur.io', ['pro.opensea.io']])) {
+if (isSupportedMarketplace(['blur.io', 'pro.opensea.io'])) {
     let lastSize = 0;
     setInterval(async () => {
         let items = getDeGods();
