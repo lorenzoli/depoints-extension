@@ -13,5 +13,5 @@ tellContentScriptToReload = (tab) => {
 
 chrome.webRequest.onCompleted.addListener(
     tellContentScriptToReload,
-    { urls: ["https://blur.io/*"] }
+    { urls: ["https://blur.io/*", "https://pro.opensea.io/*"] }
 )

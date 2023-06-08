@@ -6,9 +6,8 @@ getId = text => {
     return text.split('#')[1];
 }
 
-scan = async (scanClassName, lastSize) => {
+scan = async (items, lastSize) => {
     const degodsApiUrl = "https://api.degods.dustlabs.com/degods";
-    const items = document.querySelectorAll(scanClassName);
     const scanned = [];
     if (items != null && items.length > 0) {
         if (lastSize != items.length) {
@@ -26,11 +25,11 @@ scan = async (scanClassName, lastSize) => {
     
                             if (record.success === true) {
                                 const pointEl = document.createElement('div');
-                                pointEl.innerHTML = 'Points: ' + record.degod.points;
+                                pointEl.innerHTML = 'P: ' + record.degod.points;
                                 e.srcElement.appendChild(pointEl);
 
                                 const rankEl = document.createElement('div');
-                                rankEl.innerHTML = 'Rank: ' + record.degod.rank;
+                                rankEl.innerHTML = 'R: ' + record.degod.rank;
                                 e.srcElement.appendChild(rankEl);
                             }
                         }
@@ -43,22 +42,42 @@ scan = async (scanClassName, lastSize) => {
     return lastSize;
 }
 
-isBlur = () => {
+getItems = url => {
+    if (url.indexOf('degods') >= 0) {
+        switch (true) {
+            case url.indexOf('blur.io') >= 0:
+                return document.querySelectorAll('[class*=StyledRouterLink]');
+            case url.indexOf('pro.opensea.io') >= 0:
+                return document.getElementsByClassName('truncate font-medium text-xs');
+        }
+    }
+
+    return false;
+}
+
+isSupportedMarketplace = () => {
+    const supported = [
+        'blur.io',
+        'pro.opensea.io'
+    ];
     const url = document.location.href;
-    return url.indexOf('blur.io') >= 0 && url.indexOf('degods') >= 0;
+
+    for (const s of supported) {
+        if (url.indexOf(s) >= 0) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
-if (isBlur()) {
+if (isSupportedMarketplace()) {
     let lastSize = 0;
-    let blurClassName = "[class*=StyledRouterLink]";
+    let url = document.location.href;
     setInterval(async () => {
-        lastSize = await scan(blurClassName, lastSize);
+        let items = getItems(url);
+        if (items) {
+            lastSize = await scan(items, lastSize);
+        }
     }, 3333);
-
 }
-
-//NftDetailsGallery
-// const links = document.querySelectorAll('[class*=StyledRouterLink]');
-// links.forEach(i => i.onmouseover = function(event) {
-//     console.log(event.target.innerHTML)
-// });

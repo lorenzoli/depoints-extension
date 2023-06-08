@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "Scan degods points on marketplaces",
     "manifest_version": 3,
-    "author": "Odin DeGods",
+    "author": "Kyle DeGods",
     "action": {
         "default_title": "DeGods Points"
     },
@@ -15,7 +15,8 @@
     "content_scripts": [
         {
             "matches": [
-                "https://blur.io/*"
+                "https://blur.io/*",
+                "https://pro.opensea.io/*"
             ],
             "runAt": "document_idle",
             "js": [
