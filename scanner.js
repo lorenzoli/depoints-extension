@@ -78,7 +78,8 @@ scanY00ts = async (items, lastSize) => {
     return lastSize;
 }
 
-getDeGods = url => {
+getDeGods = () => {
+    let url = document.location.href;
     if (url.indexOf('degods') >= 0) {
         switch (true) {
             case url.indexOf('blur.io') >= 0:
@@ -91,7 +92,8 @@ getDeGods = url => {
     return false;
 }
 
-getY00ts = url => {
+getY00ts = () => {
+    let url = document.location.href;
     if (url.indexOf('y00ts') >= 0) {
         switch (true) {
             case url.indexOf('opensea.io') >= 0:
@@ -102,16 +104,11 @@ getY00ts = url => {
     return false;
 }
 
-isSupportedMarketplace = collection => {
-    const supported = [
-        'blur.io',
-        'pro.opensea.io',
-        'opensea.io'
-    ];
+isSupportedMarketplace = supported => {
     const url = document.location.href;
 
     for (const s of supported) {
-        if (url.indexOf(s) >= 0 && url.indexOf(collection) >= 0) {
+        if (url.indexOf(s) >= 0) {
             return true;
         }
     }
@@ -119,22 +116,21 @@ isSupportedMarketplace = collection => {
     return false;
 }
 
-if (isSupportedMarketplace('degods')) {
+if (isSupportedMarketplace(['blur.io', ['pro.opensea.io']])) {
     let lastSize = 0;
-    let url = document.location.href;
     setInterval(async () => {
-        let items = getDeGods(url);
+        let items = getDeGods();
         if (items) {
             lastSize = await scanDegods(items, lastSize);
         }
     }, 333);
 }
 
-if (isSupportedMarketplace('y00ts')) {
+if (isSupportedMarketplace(['opensea.io'])) {
     let lastSize = 0;
     let url = document.location.href;
     setInterval(async () => {
-        let items = getY00ts(url);
+        let items = getY00ts();
         if (items) {
             lastSize = await scanY00ts(items, lastSize);
         }
